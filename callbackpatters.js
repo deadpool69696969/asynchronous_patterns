@@ -253,6 +253,7 @@ const doStuffSequentially = async () => {
   await delay(2);
   console.log("waiting some more");
   await writeFile("file.txt", "SAMPLE FILE....");
+  await delay(3);
   beep();
   await unlink("file.txt");
   console.log("file.txt removed");
