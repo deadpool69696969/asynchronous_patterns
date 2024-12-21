@@ -247,17 +247,22 @@ var delay = (seconds) =>
   });
 
 const doStuffSequentially = async () => {
-  console.log("starting");
-  await delay(1);
-  console.log("waiting");
-  await delay(2);
-  console.log("waiting some more");
-  await writeFile("file.txt", "SAMPLE FILE....");
-  await delay(3);
-  beep();
-  await unlink("file.txt");
-  console.log("file.txt removed");
-  console.log("sequential execution completed");
+  try {
+    console.log("starting");
+    await delay(1);
+    console.log("waiting");
+    await delay(2);
+    console.log("waiting some more");
+    await writeFile("file.txt", "SAMPLE FILE....");
+    console.log("file.txt created");
+    await delay(3);
+    beep();
+    await unlink("file.txt");
+    console.log("file.txt removed");
+    console.log("sequential execution completed");
+  } catch (e) {
+    console.log("Error: ", e.message);
+  }
 };
 
 doStuffSequentially();
