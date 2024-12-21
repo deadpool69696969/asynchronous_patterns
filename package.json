@@ -1,0 +1,13 @@
+{
+  "name": "asynchronous_patterns",
+  "version": "1.0.0",
+  "main": "callbackpatters.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./callbackpatters.js"
+  },
+  "keywords": [],
+  "author": "Pushpendra Singh",
+  "license": "ISC",
+  "description": ""
+}
