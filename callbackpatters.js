@@ -199,6 +199,44 @@ comment = 8;
 comment = 9;
 
 // will fix it using promise - we are doing same sequential code but with promises so it is more readable and neat - using pomise chain
+// var writeFile = promisify(fs.writeFile);
+// var unlink = promisify(fs.unlink);
+// var beep = () => process.stdout.write("\x07");
+
+// var delay = (seconds) =>
+//   new Promise((resolve) => {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+
+// const doStuffSequentially = () =>
+//   Promise.resolve()
+//     .then(() => console.log("starting"))
+//     .then(() => delay(1)) // return a promise so it will wait for the promise to complete
+//     .then(() => "waiting")
+//     //.then(() => console.log("waiting"))
+//     .then(console.log) // use waiting msg from prev then
+//     .then(() => delay(2))
+//     .then(() => console.log("waiting some more"))
+//     .then(() => writeFile("file.txt", "SAMPLE FILE...."))
+//     .then(beep)
+//     .then(() => "file.txt created")
+//     .then(console.log)
+//     .then(() => delay(3))
+//     .then(beep)
+//     .then(() => unlink("file.txt"))
+//     .then(() => "file.txt removed")
+//     .then(console.log)
+//     .then(() => "sequential execution completed")
+//     .then(console.log)
+//     .catch(console.error);
+
+// doStuffSequentially();
+
+comment = 10;
+
+// doing same sync code without promises then chain using async/await
+// js provide us a solution to use promises in normal code using async functions - inside async function we can await for a promise to complete
+
 var writeFile = promisify(fs.writeFile);
 var unlink = promisify(fs.unlink);
 var beep = () => process.stdout.write("\x07");
@@ -208,32 +246,19 @@ var delay = (seconds) =>
     setTimeout(resolve, seconds * 1000);
   });
 
-const doStuffSequentially = () =>
-  Promise.resolve()
-    .then(() => console.log("starting"))
-    .then(() => delay(1)) // return a promise so it will wait for the promise to complete
-    .then(() => "waiting")
-    //.then(() => console.log("waiting"))
-    .then(console.log) // use waiting msg from prev then
-    .then(() => delay(2))
-    .then(() => console.log("waiting some more"))
-    .then(() => writeFile("file.txt", "SAMPLE FILE...."))
-    .then(beep)
-    .then(() => "file.txt created")
-    .then(console.log)
-    .then(() => delay(3))
-    .then(beep)
-    .then(() => unlink("file.txt"))
-    .then(() => "file.txt removed")
-    .then(console.log)
-    .then(() => "sequential execution completed")
-    .then(console.log)
-    .catch(console.error);
+const doStuffSequentially = async () => {
+  console.log("starting");
+  await delay(1);
+  console.log("waiting");
+  await delay(2);
+  console.log("waiting some more");
+  await writeFile("file.txt", "SAMPLE FILE....");
+  beep();
+  await unlink("file.txt");
+  console.log("file.txt removed");
+  console.log("sequential execution completed");
+};
 
 doStuffSequentially();
 
-comment = 10;
-
-// doing same sync code without promises then chain using async/await
-// js provide us a solution to use promises in normal code using async functions - inside async function we can await for a promise to complete
-
+comment = 11;
