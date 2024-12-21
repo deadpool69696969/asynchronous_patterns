@@ -1,8 +1,15 @@
 // Import promisify function to convert callbacks into promises
 
 import fs from "fs";
-import { resolve } from "path";
+import { resolve, dirname } from "path";
 import { promisify } from "util";
+import { fileURLToPath } from "url";
+
+var __filename = fileURLToPath(import.meta.url);
+var __dirname = dirname(__filename);
+
+// console.log(__filename);
+// console.log(__dirname);
 
 var comment = 1;
 // sync function to replace string characters with X
@@ -246,25 +253,38 @@ var delay = (seconds) =>
     setTimeout(resolve, seconds * 1000);
   });
 
-const doStuffSequentially = async () => {
-  try {
-    console.log("starting");
-    await delay(1);
-    console.log("waiting");
-    await delay(2);
-    console.log("waiting some more");
-    await writeFile("file.txt", "SAMPLE FILE....");
-    console.log("file.txt created");
-    await delay(3);
-    beep();
-    await unlink("file.txt");
-    console.log("file.txt removed");
-    console.log("sequential execution completed");
-  } catch (e) {
-    console.log("Error: ", e.message);
-  }
-};
+// const doStuffSequentially = async () => {
+//   try {
+//     console.log("starting");
+//     await delay(1);
+//     console.log("waiting");
+//     await delay(2);
+//     console.log("waiting some more");
+//     await writeFile("file.txt", "SAMPLE FILE....");
+//     console.log("file.txt created");
+//     await delay(3);
+//     beep();
+//     await unlink("file.txt");
+//     console.log("file.txt removed");
+//     console.log("sequential execution completed");
+//   } catch (e) {
+//     console.log("Error: ", e.message);
+//   }
+// };
 
-doStuffSequentially();
+// doStuffSequentially();
 
 comment = 11;
+
+//getting promise result in variable inside async await function
+
+var readdir = promisify(fs.readdir);
+
+async function start() {
+  var files = await readdir(__dirname);
+  console.log(files);
+}
+
+start();
+
+comment = 12;
