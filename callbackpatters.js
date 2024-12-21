@@ -280,11 +280,30 @@ comment = 11;
 
 var readdir = promisify(fs.readdir);
 
-async function start() {
-  var files = await readdir(__dirname);
-  console.log(files);
-}
+// async function start() {
+//   var files = await readdir(__dirname);
+//   console.log(files);
+// }
 
-start();
+// start();
 
 comment = 12;
+// Promises all -> wait for all processes to complete before triggering then chain
+
+Promise.all([
+  writeFile("readme.md", "Hellow World"),
+  writeFile("readme.txt", "Hellow World"),
+  writeFile("readme.json", '{"hello":"world"}'),
+])
+  .then(() => readdir(__dirname))
+  .then(console.log)
+  .then(() => delay(3))
+  .then(() => unlink("readme.md"))
+  .then(() => unlink("readme.txt"))
+  .then(() => unlink("readme.json"));
+
+comment = 13;
+// Parallel Execution in Promises
+
+
+comment = 14;
